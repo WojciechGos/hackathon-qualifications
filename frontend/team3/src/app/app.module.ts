@@ -6,11 +6,34 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NotifierOptions, NotifierModule } from 'angular-notifier';
+
+const customNotifier: NotifierOptions = {
+  position: {
+    horizontal: {
+      position: 'right',
+      distance: 12,
+    },
+    vertical: {
+      position: 'top',
+      distance: 12,
+      gap: 10,
+    },
+  },
+  theme: 'material',
+};
 
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, CoreModule, AuthModule, BrowserAnimationsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    CoreModule,
+    AuthModule,
+    BrowserAnimationsModule,
+    NotifierModule.withConfig(customNotifier),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
