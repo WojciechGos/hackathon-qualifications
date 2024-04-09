@@ -1,0 +1,28 @@
+.navbar-title {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+.white-color {
+    color: white;
+  }
+  
+.yellow-color {
+    color: #FFCD08;
+  }
+.divider {
+    color: #FFCD08;
+    margin: 0 10px;
+  }
+
+mat-toolbar[color="primary"] {
+  background-color: #08A298;
+}
+
+button[color="accent"] {
+    color: white; // Ustaw kolor tekstu na czarny, aby był widoczny na żółtym tle
+  }

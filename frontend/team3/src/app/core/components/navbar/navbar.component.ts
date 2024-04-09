@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterEnum } from 'src/enums/router.enum';
 
 @Component({
   selector: 'app-navbar',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-
+RouterEnum = RouterEnum;
 }
