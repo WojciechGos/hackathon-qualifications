@@ -13,16 +13,7 @@ import { RouterModule } from '@angular/router';
     NavbarComponent,
     FooterComponent
   ],
-<<<<<<< HEAD
-  imports: [SharedModule],
-
-
-  
-=======
   imports: [SharedModule, RouterModule]
 
->>>>>>> 0904Czech
 })
 export class CoreModule {}
-
-
