@@ -1,0 +1,34 @@
+<div class="register-container">
+  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2>Zarejestruj się</h2>
+
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Imię</mat-label>
+      <input autocomplete="name" type="text" matInput formControlName="firstName">
+      <mat-error *ngIf="controls.firstName.invalid">{{getErrorMessage(controls.firstName)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Nazwisko</mat-label>
+      <input autocomplete="name" type="text" matInput formControlName="lastName">
+      <mat-error *ngIf="controls.lastName.invalid">{{getErrorMessage(controls.lastName)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input autocomplete="email" type="email" matInput formControlName="email">
+      <mat-error *ngIf="controls.email.invalid">{{getErrorMessage(controls.email)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Hasło</mat-label>
+      <input autocomplete="current-password" type="password" matInput formControlName="password">
+      <mat-error *ngIf="controls.email.invalid">{{getErrorMessage(controls.password)}}</mat-error>
+    </mat-form-field>
+
+    <button [disabled]="form.invalid" type="submit" mat-raised-button color="primary">Zarejestruj się</button>
+    <p class="question">Masz już konto?</p>
+    <button type="button" routerLink="/{{RouterEnum.login}}" mat-raised-button color="primary">Zaloguj się</button>
+  </form>
+
+</div>
