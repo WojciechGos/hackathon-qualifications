@@ -31,7 +31,7 @@ public class EntryController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Entry>  updateEntry(@PathVariable("id") Long id, @RequestBody Entry entry) {
+    public ResponseEntity<Entry>  updateEntry(@PathVariable("id") Long id, @RequestBody @Valid Entry entry) {
         return new ResponseEntity<>(entryService.updateEntry(id,entry), HttpStatus.OK);
     }
 
