@@ -3,7 +3,9 @@
       cursor: pointer;
     }
   }
-  
+  .mat-toolbar {
+    font-size: 1.7em; 
+  }
   .spacer {
     flex: 1 1 auto;
   }
@@ -24,5 +26,5 @@ mat-toolbar[color="primary"] {
 }
 
 button[color="accent"] {
-    color: white; // Ustaw kolor tekstu na czarny, aby był widoczny na żółtym tle
+    color: white; 
   }
