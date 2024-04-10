@@ -61,15 +61,15 @@ public class SecurityConfig {
                             return corsConfig;
                         })
                 )
-//                .authorizeHttpRequests(auth -> {
-//                    auth.requestMatchers(HttpMethod.POST, "/api/v1/sign-in").permitAll();
-//                    auth.requestMatchers(HttpMethod.POST, "/api/v1/sign-up").permitAll();
-//                    auth.anyRequest().authenticated();
-//                })
-//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers(HttpMethod.POST, "/api/v1/sign-in").permitAll();
+                    auth.requestMatchers(HttpMethod.POST, "/api/v1/sign-up").permitAll();
+                    auth.anyRequest().authenticated();
+                })
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
-//                .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .build();
     }
 
