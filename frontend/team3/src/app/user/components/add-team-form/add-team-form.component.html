@@ -30,7 +30,7 @@
       <div *ngFor="let userGroup of form.controls.users.controls; let i=index" [formGroupName]="i">
         <mat-form-field class="input" appearance="fill">
           <mat-label>Uczestnik</mat-label>
-          <input type="text" matInput formControlName="name">
+          <input type="text" matInput formControlName="nameAndSurname">
         </mat-form-field>
         <mat-form-field class="input" appearance="fill">
           <mat-label>Email</mat-label>
