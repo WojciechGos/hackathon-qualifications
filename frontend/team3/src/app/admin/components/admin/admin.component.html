@@ -35,11 +35,12 @@
         <mat-form-field>
         <mat-label class="menu-label">Zmień Role</mat-label>
             <mat-select>
-              <mat-option value="one">Organizator</mat-option>
-              <mat-option value="two">Uczestnik</mat-option>
+              <mat-option value="one" (click)="changeRole(element.position,'user', element.rola)">User</mat-option>
+              <mat-option value="two" (click)="changeRole(element.position,'jury', element.rola)">Jury</mat-option>
+              <mat-option value="two" (click)="changeRole(element.position,'admin', element.rola)">Admin</mat-option>
             </mat-select>
           </mat-form-field>
-        <button mat-menu-item class="delete-button" >Usuń</button>
+        <button mat-menu-item class="delete-button" (click)="delete">Usuń</button>
       </mat-menu>  </td>
   </ng-container>
 

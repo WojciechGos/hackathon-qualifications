@@ -6,6 +6,7 @@ import {AfterViewInit, Component, ViewChild,inject} from '@angular/core';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
+import { ChangeDetectorRef } from '@angular/core';
 
 export interface PeriodicElement {
   name: string;
@@ -41,13 +42,26 @@ export class AdminComponent implements AfterViewInit {
   clickedRows = new Set<PeriodicElement>();
   sort!: MatSort; // Definite assignment assertion
 
-  constructor(private _liveAnnouncer: LiveAnnouncer) {}
+  constructor(private _liveAnnouncer: LiveAnnouncer, private cdr: ChangeDetectorRef) {}
 
   @ViewChild(MatSort) set matSort(sort: MatSort) {
     this.sort = sort;
     this.dataSource.sort = this.sort;
   }
   
+  changeRole(position: number,rola: string, person: PeriodicElement) {
+    // Tutaj możesz zaimplementować logikę zmiany roli osoby
+    console.log('position:', position);
+    console.log(`Changing role of ${person.rola} to ${rola}`);
+    // Na przykład możesz wysłać żądanie do serwera lub zmienić wartość 'group' dla danej osoby w źródle danych
+    
+    this.cdr.detectChanges();
+  }
+  delete(){
+
+    //usuwanie postaci
+  }
+
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
