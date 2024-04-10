@@ -48,5 +48,7 @@ public class Entry {
     private List<Person> participantList = new ArrayList<>();
 
     private EntryStatus status = EntryStatus.PENDING;
+    private String fileName;
+    private String filePath;
 
 }
