@@ -1,7 +1,5 @@
 <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8 " matSort>
 
-  <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
 
   <!-- Position Column -->
   <ng-container matColumnDef="position">
@@ -22,12 +20,36 @@
     <td mat-cell *matCellDef="let element"> {{element.last_name}} </td>
   </ng-container>
 
-  <!-- group Column -->
-  <ng-container matColumnDef="group">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by group"> Group </th>
-    <td mat-cell *matCellDef="let element"> {{element.group}} </td>
+  <!-- rola Column -->
+  <ng-container matColumnDef="rola">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by rola"> Rola </th>
+    <td mat-cell *matCellDef="let element"> {{element.rola}} </td>
   </ng-container>
 
+  <!-- rola Settings -->
+  <ng-container matColumnDef="settings">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Settings </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+      <mat-menu class="menu" #menu="matMenu">
+        <mat-form-field>
+        <mat-label class="menu-label">Zmień Role</mat-label>
+            <mat-select>
+              <mat-option value="one">Organizator</mat-option>
+              <mat-option value="two">Uczestnik</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <button mat-menu-item class="delete-button" >Usuń</button>
+      </mat-menu>  </td>
+  </ng-container>
+
+  
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-row
+  (click)="clickedRows.add(row)"
+  [class.demo-row-is-clicked]="clickedRows.has(row)"
+  *matRowDef="let row; columns: displayedColumns;"
+></tr>
 </table>
+

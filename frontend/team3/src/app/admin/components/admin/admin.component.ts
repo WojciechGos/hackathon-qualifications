@@ -2,27 +2,30 @@ import {MatTableModule} from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
-
+import {AfterViewInit, Component, ViewChild,inject} from '@angular/core';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
 
 export interface PeriodicElement {
   name: string;
   position: number;
   last_name: string;
-  group: string;
+  rola: string;
+  
   
 }
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', last_name: 'Be', group: 'H'},
-  {position: 2, name: 'Helium', last_name: 'Be', group: 'He'},
-  {position: 3, name: 'Lithium', last_name: 'Be', group: 'Li'},
-  {position: 4, name: 'Beryllium', last_name: 'Be', group: 'Be'},
-  {position: 5, name: 'Boron', last_name: 'Be', group: 'B'},
-  {position: 6, name: 'Carbon', last_name: 'Be', group: 'C'},
-  {position: 7, name: 'Nitrogen', last_name: 'Be', group: 'N'},
-  {position: 8, name: 'Oxygen', last_name: 'Be', group: 'O'},
-  {position: 9, name: 'Fluorine', last_name: 'Be', group: 'F'},
-  {position: 10, name: 'Neon', last_name: 'Be', group: 'Ne'},
+  {position: 1, name: 'Hydrogen', last_name: 'Be', rola: 'H'},
+  {position: 2, name: 'Helium', last_name: 'Be', rola: 'He'},
+  {position: 3, name: 'Lithium', last_name: 'Be', rola: 'Li'},
+  {position: 4, name: 'Beryllium', last_name: 'Be', rola: 'Be'},
+  {position: 5, name: 'Boron', last_name: 'Be', rola: 'B'},
+  {position: 6, name: 'Carbon', last_name: 'Be', rola: 'C'},
+  {position: 7, name: 'Nitrogen', last_name: 'Be', rola: 'N'},
+  {position: 8, name: 'Oxygen', last_name: 'Be', rola: 'O'},
+  {position: 9, name: 'Fluorine', last_name: 'Be', rola: 'F'},
+  {position: 10, name: 'Neon', last_name: 'Be', rola: 'Ne'},
 ];
 
 @Component({
@@ -30,11 +33,12 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
   standalone: true,
-  imports: [MatTableModule, MatSortModule],
+  imports: [MatTableModule, MatSortModule,MatButtonModule, MatMenuModule,MatSelectModule],
 })
 export class AdminComponent implements AfterViewInit {
-  displayedColumns: string[] = ['position', 'name', 'last_name', 'group'];
+  displayedColumns: string[] = ['position', 'name', 'last_name', 'rola','settings'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
+  clickedRows = new Set<PeriodicElement>();
   sort!: MatSort; // Definite assignment assertion
 
   constructor(private _liveAnnouncer: LiveAnnouncer) {}
@@ -43,7 +47,7 @@ export class AdminComponent implements AfterViewInit {
     this.sort = sort;
     this.dataSource.sort = this.sort;
   }
-
+  
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
@@ -54,5 +58,5 @@ export class AdminComponent implements AfterViewInit {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+    }
   }
-}

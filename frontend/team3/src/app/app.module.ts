@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { MatTableModule } from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -8,6 +8,9 @@ import { AuthModule } from './auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotifierOptions, NotifierModule } from 'angular-notifier';
 import { AdminModule } from './admin/admin.module';
+
+
+
 const customNotifier: NotifierOptions = {
   position: {
     horizontal: {
@@ -31,6 +34,7 @@ const customNotifier: NotifierOptions = {
     AppRoutingModule,
     CoreModule,
     AuthModule,
+    MatTableModule,
     AdminModule,
     BrowserAnimationsModule,
     NotifierModule.withConfig(customNotifier),

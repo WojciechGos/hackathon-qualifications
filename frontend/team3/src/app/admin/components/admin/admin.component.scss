@@ -5,3 +5,29 @@ table {
 th.mat-sort-header-sorted {
   color: black;
 }
+.mat-mdc-row .mat-mdc-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: currentColor;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+
+
+.menu-label {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.delete-button {
+  width: 100%;
+  text-align: center;
+}
+
