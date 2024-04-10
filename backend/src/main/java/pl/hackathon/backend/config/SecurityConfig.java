@@ -64,6 +64,22 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(HttpMethod.POST, "/api/v1/sign-in").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/api/v1/sign-up").permitAll();
+
+                    auth.requestMatchers(HttpMethod.POST, "/api/v1/entries").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.PATCH, "/api/v1/entries/**").hasAnyRole("USER", "ADMIN", "JURY");
+                    auth.requestMatchers(HttpMethod.DELETE, "/api/v1/entries/**").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/entries/**").hasAnyRole("USER", "ADMIN", "JURY");
+
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/storage/**").hasAnyRole("USER", "ADMIN", "JURY");
+                    auth.requestMatchers(HttpMethod.POST, "/api/v1/storage/**").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.DELETE, "/api/v1/storage/**").hasAnyRole("USER", "ADMIN");
+
+                    auth.requestMatchers(HttpMethod.PATCH, "/api/v1/persons/**").hasAnyRole("USER", "ADMIN");
+
+                    auth.requestMatchers(HttpMethod.PATCH, "/api/v1/users/**").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/users/**").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasAnyRole("USER", "ADMIN");
+
                     auth.anyRequest().authenticated();
                 })
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
