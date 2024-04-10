@@ -40,7 +40,8 @@ export class AddTeamFormComponent {
       validators: [Validators.required, Validators.min(1), Validators.max(4)],
       nonNullable: true,
     }),
-    users: new FormArray([new FormControl('', { nonNullable: true })]),
+    users: new FormArray([], Validators.required),
+    file: new FormControl('', { nonNullable: true }) 
   });
 
   get controls() {
@@ -70,20 +71,36 @@ export class AddTeamFormComponent {
   onAmountChange() {
     const amount = +this.form.getRawValue().amount;
     const usersArray = this.form.get('users') as FormArray;
+    const amountControl = this.form.get('amount');
 
+    if (amountControl) {
+      let amount = amountControl.value;
+      if (amount > 4) {
+        amountControl.setValue(4);
+      } else if (amount <= 1) {
+        amount = 1;
+        amountControl.setValue(1);
+      }
+    }
     while (usersArray.length !== 0) {
       usersArray.removeAt(0);
     }
 
-    for (let i = 0; i < amount; i++) {
-      usersArray.push(new FormControl('', { nonNullable: true }));
+    const amountToGenerate = Math.min(amount, 4);
+
+    for (let i = 0; i < amountToGenerate; i++) {
+      const userFormGroup = new FormGroup({
+        name: new FormControl('', Validators.required),
+        email: new FormControl('', [Validators.required, Validators.email])
+      });
+      usersArray.push(userFormGroup);
     }
   }
 
   onSubmit() {
     const usersArray = this.form.get('users') as FormArray;
-
-    const allEmpty = usersArray.controls.filter((control) => !control.value);
+    console.log(this.form.getRawValue());
+    const allEmpty = usersArray.controls.every((control) => !control.value);
 
     if (allEmpty) {
       this.notifierService.notify(
