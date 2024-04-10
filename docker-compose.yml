@@ -1,0 +1,15 @@
+version: "3.9" 
+
+services:
+  database:
+    image: postgres
+    container_name: db
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=hackathon
+    ports:
+      - '5432:5432'
+
+

@@ -7,8 +7,11 @@ import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotifierOptions, NotifierModule } from 'angular-notifier';
+
 import { AdminModule } from './admin/admin.module';
 
+import { HomeModule } from './home/home.module';
+import { UserModule } from './user/user.module';
 
 
 const customNotifier: NotifierOptions = {
@@ -26,7 +29,6 @@ const customNotifier: NotifierOptions = {
   theme: 'material',
 };
 
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -34,10 +36,16 @@ const customNotifier: NotifierOptions = {
     AppRoutingModule,
     CoreModule,
     AuthModule,
+
     MatTableModule,
     AdminModule,
+
+    HomeModule,
+
     BrowserAnimationsModule,
+    UserModule,
     NotifierModule.withConfig(customNotifier),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
