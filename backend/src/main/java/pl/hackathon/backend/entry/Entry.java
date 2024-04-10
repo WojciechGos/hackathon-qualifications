@@ -47,5 +47,6 @@ public class Entry {
     @Size(min = 1, max = 4, message = "Participant list must contain between 1 and 4 participants")
     private List<Person> participantList = new ArrayList<>();
 
+    private EntryStatus status = EntryStatus.PENDING;
 
 }
