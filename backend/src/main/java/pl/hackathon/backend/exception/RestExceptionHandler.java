@@ -39,10 +39,10 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(new ExceptionResponse(400, "Bad Request", ex.getMessage(), new Timestamp(System.currentTimeMillis())), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionResponse> handleException(Exception ex) {
-        return new ResponseEntity<>(new ExceptionResponse(500, "Internal Server Error", ex.getMessage(), new Timestamp(System.currentTimeMillis())), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ExceptionResponse> handleException(Exception ex) {
+//        return new ResponseEntity<>(new ExceptionResponse(500, "Internal Server Error", ex.getMessage(), new Timestamp(System.currentTimeMillis())), HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
     
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ExceptionResponse> handleValidationExceptions(ConstraintViolationException ex) {
