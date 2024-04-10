@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
-
+import { JuryModule } from './jury/jury.module';
 import { AdminModule } from './admin/admin.module';
 
 import { HomeModule } from './home/home.module';
@@ -38,6 +38,7 @@ const customNotifier: NotifierOptions = {
     HomeModule,
     BrowserAnimationsModule,
     UserModule,
+    JuryModule,
     NotifierModule.withConfig(customNotifier),
     BrowserAnimationsModule,
   ],

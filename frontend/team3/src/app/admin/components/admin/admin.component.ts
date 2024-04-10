@@ -34,8 +34,6 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class AdminComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['position', 'name', 'last_name', 'rola', 'settings'];
-
   displayedColumns: string[] = [
     'position',
     'email',
@@ -43,15 +41,6 @@ export class AdminComponent implements AfterViewInit {
     'settings',
   ];
 
-
-  displayedColumns: string[] = [
-    'position',
-    'name',
-    'last_name',
-    'rola',
-    'settings',
-  ];
->>>>>>> master
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   clickedRows = new Set<PeriodicElement>();
   sort!: MatSort;
@@ -80,6 +69,8 @@ export class AdminComponent implements AfterViewInit {
   delete(position: number) {
     console.log('Deleted:', position);
     // Delete the entry
+
+
     this.cdr.detectChanges();
   }
 
