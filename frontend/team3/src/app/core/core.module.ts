@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [NavbarComponent, FooterComponent],
+  declarations: [NavbarComponent, FooterComponent,],
   exports: [NavbarComponent, FooterComponent],
   imports: [SharedModule, RouterModule, HttpClientModule],
 })
