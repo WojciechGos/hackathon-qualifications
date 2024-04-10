@@ -57,9 +57,10 @@ export class AdminComponent implements AfterViewInit {
     
     this.cdr.detectChanges();
   }
-  delete(){
-
+  delete(position: number){
+    console.log('Deleted:', position);
     //usuwanie postaci
+    this.cdr.detectChanges();
   }
 
   ngAfterViewInit() {
