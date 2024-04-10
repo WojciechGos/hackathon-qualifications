@@ -6,10 +6,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import pl.hackathon.backend.person.Person;
 
 import java.util.ArrayList;
@@ -20,6 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @ToString
+@AllArgsConstructor
 public class Entry {
     @SequenceGenerator(
             name = "entry_sequence",
@@ -43,7 +41,7 @@ public class Entry {
     @Max(value = 4, message = "Participant number must be at most 4")
     private int participantNumber;
 
-    @OneToMany
+    @OneToMany()
     @Size(min = 1, max = 4, message = "Participant list must contain between 1 and 4 participants")
     private List<Person> participantList = new ArrayList<>();
 

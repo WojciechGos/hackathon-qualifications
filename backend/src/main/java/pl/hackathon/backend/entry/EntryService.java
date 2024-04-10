@@ -60,6 +60,9 @@ public class EntryService {
         if(entry.getParticipantNumber() > 0 && entry.getParticipantNumber() <= 4)
             entryToUpdate.setParticipantNumber(entry.getParticipantNumber());
 
+        if(entry.getStatus() != null)
+            entryToUpdate.setStatus(entry.getStatus());
+
         System.out.println(entry.getParticipantList());
         if(!entry.getParticipantList().isEmpty()){
             for (Person person : entry.getParticipantList()) {

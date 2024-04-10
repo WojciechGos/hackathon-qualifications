@@ -25,6 +25,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import pl.hackathon.backend.jwt.JWTAuthenticationEntryPoint;
+import pl.hackathon.backend.jwt.JWTAuthenticationFilter;
+import pl.hackathon.backend.user.UserService;
+
 import java.util.Arrays;
 
 
@@ -37,15 +41,10 @@ public class SecurityConfig {
     @Value("${backend.security.allowed.origins}")
     private String allowedOrigins;
 
-//    private final JwtAuthFilter jwtAuthFilter;
+    private final AuthenticationProvider authenticationProvider;
+    private final JWTAuthenticationFilter jwtAuthenticationFilter;
+    private final JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-
-//    @Bean
-//    public AuthenticationManager authenticationManager(
-//            AuthenticationConfiguration configuration
-//    ) throws Exception {
-//        return configuration.getAuthenticationManager();
-//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -62,29 +61,36 @@ public class SecurityConfig {
                             return corsConfig;
                         })
                 )
-//                .authorizeHttpRequests(auth -> {
-//                    auth.requestMatchers(HttpMethod.POST, "/api/v1/sign-in").permitAll();
-//                    auth.requestMatchers(HttpMethod.POST, "/api/v1/sign-up").permitAll();
-//                    auth.anyRequest().authenticated();
-//                })
-//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authenticationProvider(authenticationProvider())
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers(HttpMethod.POST, "/api/v1/sign-in").permitAll();
+                    auth.requestMatchers(HttpMethod.POST, "/api/v1/sign-up").permitAll();
+
+                    auth.requestMatchers(HttpMethod.POST, "/api/v1/entries").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.PATCH, "/api/v1/entries/**").hasAnyRole("USER", "ADMIN", "JURY");
+                    auth.requestMatchers(HttpMethod.DELETE, "/api/v1/entries/**").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/entries/**").hasAnyRole("USER", "ADMIN", "JURY");
+
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/storage/**").hasAnyRole("USER", "ADMIN", "JURY");
+                    auth.requestMatchers(HttpMethod.POST, "/api/v1/storage/**").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.DELETE, "/api/v1/storage/**").hasAnyRole("USER", "ADMIN");
+
+                    auth.requestMatchers(HttpMethod.PATCH, "/api/v1/persons/**").hasAnyRole("USER", "ADMIN");
+
+                    auth.requestMatchers(HttpMethod.PATCH, "/api/v1/users/**").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.GET, "/api/v1/users/**").hasAnyRole("USER", "ADMIN");
+                    auth.requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasAnyRole("USER", "ADMIN");
+
+                    auth.anyRequest().authenticated();
+                })
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .build();
     }
 
 
-//
-//    @Bean
-//    public AuthenticationProvider authenticationProvider() {
-//        final DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-//        authenticationProvider.setUserDetailsService(customUserDetailsService);
-//        authenticationProvider.setPasswordEncoder(passwordEncoder());
-//        return authenticationProvider;
-//    }
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return NoOpPasswordEncoder.getInstance();
-//    }
+
+
+
 }
