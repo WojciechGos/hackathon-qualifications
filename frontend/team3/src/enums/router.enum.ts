@@ -4,7 +4,7 @@ export enum RouterEnum {
   register = 'register',
 
   admin = 'admin',
-
+jury = 'jury',
   addTeam = 'user/add-team',
 
 }

@@ -9,23 +9,22 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 export interface PeriodicElement {
-  name: string;
+  email: string;
   position: number;
-  last_name: string;
   rola: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', last_name: 'Be', rola: 'H' },
-  { position: 2, name: 'Helium', last_name: 'Be', rola: 'He' },
-  { position: 3, name: 'Lithium', last_name: 'Be', rola: 'Li' },
-  { position: 4, name: 'Beryllium', last_name: 'Be', rola: 'Be' },
-  { position: 5, name: 'Boron', last_name: 'Be', rola: 'B' },
-  { position: 6, name: 'Carbon', last_name: 'Be', rola: 'C' },
-  { position: 7, name: 'Nitrogen', last_name: 'Be', rola: 'N' },
-  { position: 8, name: 'Oxygen', last_name: 'Be', rola: 'O' },
-  { position: 9, name: 'Fluorine', last_name: 'Be', rola: 'F' },
-  { position: 10, name: 'Neon', last_name: 'Be', rola: 'Ne' },
+  { position: 1, email: 'Hydrogen', rola: 'H' },
+  { position: 2, email: 'Helium',  rola: 'He' },
+  { position: 3, email: 'Lithium',  rola: 'Li' },
+  { position: 4, email: 'Beryllium', rola: 'Be' },
+  { position: 5, email: 'Boron', rola: 'B' },
+  { position: 6, email: 'Carbon', rola: 'C' },
+  { position: 7, email: 'Nitrogen',  rola: 'N' },
+  { position: 8, email: 'Oxygen',  rola: 'O' },
+  { position: 9, email: 'Fluorine', rola: 'F' },
+  { position: 10, email: 'Neon', rola: 'Ne' },
 ];
 
 @Component({
@@ -34,13 +33,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements AfterViewInit {
+
   displayedColumns: string[] = [
     'position',
-    'name',
-    'last_name',
+    'email',
     'rola',
     'settings',
   ];
+
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   clickedRows = new Set<PeriodicElement>();
   sort!: MatSort;
@@ -58,7 +58,7 @@ export class AdminComponent implements AfterViewInit {
 
   changeRole(person: PeriodicElement | undefined, newRole: string) {
     if (person) {
-      console.log(`Changing role of ${person.name} to ${newRole}`);
+      console.log(`Changing role of ${person.email} to ${newRole}`);
       person.rola = newRole;
       // Implement your logic here to update the role in the database or perform other actions
     }
@@ -69,6 +69,8 @@ export class AdminComponent implements AfterViewInit {
   delete(position: number) {
     console.log('Deleted:', position);
     // Delete the entry
+
+
     this.cdr.detectChanges();
   }
 
