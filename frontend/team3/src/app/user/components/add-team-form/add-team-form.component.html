@@ -1,0 +1,35 @@
+<div class="add-team-container">
+  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2>Dodaj zespół</h2>
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>nazwa zespołu</mat-label>
+      <input type="text" matInput formControlName="teamName">
+      <mat-error *ngIf="controls.teamName.invalid">{{getErrorMessage(controls.teamName)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Opis</mat-label>
+      <input type="text" matInput formControlName="description">
+      <mat-error *ngIf="controls.description.invalid">{{getErrorMessage(controls.description)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Liczba uczestników</mat-label>
+      <input type="number" matInput formControlName="amount" (change)="onAmountChange()">
+      <mat-error *ngIf="controls.amount.invalid">{{getErrorMessage(controls.amount)}}</mat-error>
+    </mat-form-field>
+
+    <div formArrayName="users">
+      <div *ngFor="let user of form.getRawValue().users let i=index">
+        <mat-form-field class="input" appearance="fill">
+          <mat-label>Uczestnik</mat-label>
+          <input type="text" matInput>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <button [disabled]="form.invalid" type="submit" mat-raised-button color="primary">Dodaj zespół</button>
+
+  </form>
+
+</div>
