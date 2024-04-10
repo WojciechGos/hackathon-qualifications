@@ -36,7 +36,7 @@ public class Entry {
     @Size(min = 1, max = 50, message = "Team name length must be between 1 and 50 characters")
     private String teamName;
 
-    @Size(max = 255, message = "Team description length must be less than or equal to 255 characters")
+    @Size(min=1, max = 255, message = "Team description length must be less than or equal to 255 characters")
     private String teamDescription;
 
     @Min(value = 1, message = "Participant number must be at least 1")
@@ -48,5 +48,7 @@ public class Entry {
     private List<Person> participantList = new ArrayList<>();
 
     private EntryStatus status = EntryStatus.PENDING;
+    private String fileName;
+    private String filePath;
 
 }

@@ -8,6 +8,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [],
@@ -20,7 +22,9 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
     MatCheckboxModule,
     MatCardModule,
     MatSelectModule,
-    NgxMatFileInputModule
+    NgxMatFileInputModule,
+    MatTableModule,
+    MatSortModule,
   ],
 })
 export class MaterialModule {}
