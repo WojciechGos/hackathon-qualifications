@@ -1,0 +1,22 @@
+<div class="login-container">
+  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2>Zaloguj się</h2>
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input autocomplete="email" type="email" matInput formControlName="email">
+      <mat-error *ngIf="controls.email.invalid">{{getErrorMessage(controls.email)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Hasło</mat-label>
+      <input autocomplete="current-password" type="password" matInput formControlName="password">
+      <mat-error *ngIf="controls.email.invalid">{{getErrorMessage(controls.password)}}</mat-error>
+    </mat-form-field>
+
+    <button [disabled]="form.invalid" type="submit" mat-raised-button color="primary">Zaloguj</button>
+    <p class="question">Nie masz konta?</p>
+    <button type="button" routerLink="/{{RouterEnum.register}}" mat-raised-button color="primary">Zarejestruj
+      się</button>
+  </form>
+
+</div>

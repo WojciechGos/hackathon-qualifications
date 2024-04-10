@@ -1,0 +1,25 @@
+@import "_extends";
+@import "_variables";
+
+.register-container {
+  @extend .center-page;
+  background-color: $main-color;
+}
+
+.form {
+  @extend .form;
+}
+
+.input {
+  @extend .input;
+}
+
+.question {
+  @extend .question;
+}
+
+@media (orientation: portrait) and (max-width: map-get($grid-breakpoints, md)) {
+  .form {
+    width: 100%;
+  }
+}

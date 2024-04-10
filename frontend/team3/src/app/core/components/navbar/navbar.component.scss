@@ -1,0 +1,30 @@
+.navbar-title {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .mat-toolbar {
+    font-size: 1.7em; 
+  }
+  .spacer {
+    flex: 1 1 auto;
+  }
+.white-color {
+    color: white;
+  }
+  
+.yellow-color {
+    color: #FFCD08;
+  }
+.divider {
+    color: #FFCD08;
+    margin: 0 10px;
+  }
+
+mat-toolbar[color="primary"] {
+  background-color: #08A298;
+}
+
+button[color="accent"] {
+    color: white; 
+  }

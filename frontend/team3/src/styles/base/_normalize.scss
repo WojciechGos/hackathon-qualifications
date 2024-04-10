@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: $font-size-basic;
+  color: $color-font-black;
+  font-family: "Roboto", sans-serif;
+  background-color: #08A298;
+}
+a {
+  color: $color-font-black;
+  text-decoration: none;
+}
+h1 {
+  font-size: 2em;
+}
