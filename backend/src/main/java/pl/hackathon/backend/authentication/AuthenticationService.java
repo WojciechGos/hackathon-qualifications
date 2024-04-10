@@ -7,38 +7,56 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.GrantedAuthority;
+import pl.hackathon.backend.jwt.JWTUtil;
+import pl.hackathon.backend.user.*;
 
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class AuthenticationService {
-//    private final AuthenticationManager authenticationManager;
-//    public String signin(SignInRequest request) throws BadRequestException {
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        request.email(),
-//                        request.password()
-//                )
-//        );
-//        final CustomUserDetails user = customUserDetailsService.loadUserByEmail(request.email());
+    private final AuthenticationManager authenticationManager;
+    private final UserService userService;
+    private final JWTUtil jwtUtil;
 
-//        if(user != null) {
-//            return jwtUtil.issueToken(user.getEmail(), user.getAuthorities()
-//                    .stream()
-//                    .map(GrantedAuthority::getAuthority)
-//                    .collect(Collectors.toList()));
-//        }
-//        throw new BadRequestException("Some error occurred in signing in.");
-//    }
+    public AuthenticationResponse signin(SignInRequest request) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.email(),
+                        request.password()
+                )
+        );
+        User principal = (User) authentication.getPrincipal();
+        UserDTO userDTO = new UserDTO(
+                principal.getId(),
+                principal.getNameAndSurname(),
+                principal.getEmail(),
+                principal.getUserRole()
+        );
 
-//    public String signup(SignUpRequest signUpRequest) {
+        String token = jwtUtil.issueToken(
+                principal.getEmail(),
+                principal.getAuthorities()
+                        .stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.toList()));
+        return new AuthenticationResponse(token, userDTO);
+    }
 
-//        CustomUserDetails user = new CustomUserDetails(signUpRequest.email(), signUpRequest.firstName(), signUpRequest.lastName(), signUpRequest.password());
-//        customUserDetailsService.createUser(user);
-//        return jwtUtil.issueToken(user.getEmail(), user.getAuthorities()
-//                .stream()
-//                .map(GrantedAuthority::getAuthority)
-//                .collect(Collectors.toList()));
-//    }
+    public AuthenticationResponse signup(SignUpRequest signUpRequest) {
+
+        System.out.println(signUpRequest.email());
+        User user = new User(signUpRequest.email(), signUpRequest.nameAndSurname(), signUpRequest.password(), UserRole.USER);
+
+        UserDTO userDTO = UserMapper.mapToUserDTO(user);
+
+        userService.createUser(user);
+
+        String token = jwtUtil.issueToken(user.getEmail(), user.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList()));
+
+        return new AuthenticationResponse(token, userDTO);
+    }
 }
