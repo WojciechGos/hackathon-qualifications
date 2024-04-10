@@ -8,6 +8,7 @@ import pl.hackathon.backend.exception.BadRequestException;
 import pl.hackathon.backend.exception.ResourceNotFoundException;
 import pl.hackathon.backend.person.Person;
 import pl.hackathon.backend.person.PersonService;
+import pl.hackathon.backend.storage.StorageUtils;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class EntryService {
 
     private final EntryRepository entryRepository;
     private final PersonService personService;
+    private final StorageUtils storageUtils;
 
     public Entry getEntryById(Long id) {
         return entryRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Entry with id: [%s] not found.".formatted(id)));
@@ -70,6 +72,8 @@ public class EntryService {
     }
 
     public void deleteEntry(Long id) {
+        Entry entry = getEntryById(id);
+        storageUtils.deleteFileFromFileSystem(entry.getFilePath());
         entryRepository.deleteById(id);
     }
 
