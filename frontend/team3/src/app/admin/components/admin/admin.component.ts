@@ -1,13 +1,12 @@
-import { MatTableModule } from '@angular/material/table';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { ChangeDetectorRef } from '@angular/core';
-import { FormsModule } from '@angular/forms'; 
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ViewChild,
+} from '@angular/core';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface PeriodicElement {
   name: string;
@@ -33,17 +32,24 @@ const ELEMENT_DATA: PeriodicElement[] = [
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
-  standalone: true,
-  imports: [MatTableModule, MatSortModule, MatButtonModule, MatMenuModule, MatSelectModule, FormsModule], 
 })
 export class AdminComponent implements AfterViewInit {
-  displayedColumns: string[] = ['position', 'name', 'last_name', 'rola', 'settings'];
+  displayedColumns: string[] = [
+    'position',
+    'name',
+    'last_name',
+    'rola',
+    'settings',
+  ];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   clickedRows = new Set<PeriodicElement>();
-  sort!: MatSort; 
-  selectedRole: string = ''; 
+  sort!: MatSort;
+  selectedRole: string = '';
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private _liveAnnouncer: LiveAnnouncer,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   @ViewChild(MatSort) set matSort(sort: MatSort) {
     this.sort = sort;
@@ -63,7 +69,7 @@ export class AdminComponent implements AfterViewInit {
   delete(position: number) {
     console.log('Deleted:', position);
     // Delete the entry
-    this.cdr.detectChanges(); 
+    this.cdr.detectChanges();
   }
 
   ngAfterViewInit() {

@@ -9,6 +9,6 @@ import { AdminComponent } from './components/admin/admin.component';
 @NgModule({
   imports: [SharedModule, AdminRoutingModule],
 
-  declarations: [DialogComponent],
+  declarations: [DialogComponent, AdminComponent],
 })
 export class AdminModule {}
