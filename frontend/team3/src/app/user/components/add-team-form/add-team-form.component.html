@@ -14,19 +14,33 @@
     </mat-form-field>
 
     <mat-form-field class="input" appearance="fill">
+      <mat-label>Załącznik (PDF)</mat-label>
+      <ngx-mat-file-input formControlName="file" accept=".pdf"></ngx-mat-file-input>
+      <mat-error *ngIf="controls.file.invalid">Załącznik jest wymagany!</mat-error>
+    </mat-form-field>
+    
+
+    <mat-form-field class="input" appearance="fill">
       <mat-label>Liczba uczestników</mat-label>
       <input type="number" matInput formControlName="amount" (change)="onAmountChange()">
       <mat-error *ngIf="controls.amount.invalid">{{getErrorMessage(controls.amount)}}</mat-error>
     </mat-form-field>
 
     <div formArrayName="users">
-      <div *ngFor="let user of form.getRawValue().users let i=index">
+      <div *ngFor="let userGroup of form.controls.users.controls; let i=index" [formGroupName]="i">
         <mat-form-field class="input" appearance="fill">
           <mat-label>Uczestnik</mat-label>
-          <input type="text" matInput>
+          <input type="text" matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field class="input" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput formControlName="email">
         </mat-form-field>
       </div>
     </div>
+    
+    
+    
 
     <button [disabled]="form.invalid" type="submit" mat-raised-button color="primary">Dodaj zespół</button>
 

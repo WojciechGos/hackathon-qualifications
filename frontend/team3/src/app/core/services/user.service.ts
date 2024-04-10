@@ -8,11 +8,11 @@ import { Team } from '../models/team.model';
   providedIn: 'root',
 })
 export class UserService {
-  apiURL = `${environment.apiURL}/`;
+  apiURL = `${environment.apiURL}`;
   constructor(private http: HttpClient) {}
 
   addTeam(body: Team): Observable<any> {
-    return this.http.post<any>(`${this.apiURL}/add-team`, body, {
+    return this.http.post<any>(`${this.apiURL}/entries`, body, {
       withCredentials: true,
     });
   }
