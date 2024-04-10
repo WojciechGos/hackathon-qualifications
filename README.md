@@ -14,7 +14,7 @@ Twoim zadaniem jest stworzenie REST API w dowolnej technologii, wraz z „cienki
     2. Zarządzanie plikami PDF: API powinno umożliwiać wgrywanie plików PDF jako część zgłoszenia na hackathon. Pliki PDF powinny być powiązane z konkretnymi zgłoszeniami.
 
     3. Edycja zgłoszeń: API powinno umożliwiać aktualizację danych zgłoszeń na hackathon.
-
+test pulla
     4. Pobieranie zgłoszeń: API powinno umożliwiać pobieranie informacji o zgłoszeniach na hackathon, wraz z powiązanymi plikami PDF.
 
     5. Usuwanie zgłoszeń: API powinno umożliwiać usuwanie zgłoszeń na hackathon, wraz z powiązanymi plikami PDF.
