@@ -1,24 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
-import { DialogComponent } from './dialog/dialog.component';
 
+import { SharedModule } from '../shared/shared.module';
+import { DialogComponent } from './dialog/dialog.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
- 
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    MatTableModule,
-    MatSortModule
-  ],
- 
-  declarations: [
-      DialogComponent
- 
-  ]
+  imports: [SharedModule, AdminRoutingModule],
+
+  declarations: [DialogComponent],
 })
-export class AdminModule { }
+export class AdminModule {}
