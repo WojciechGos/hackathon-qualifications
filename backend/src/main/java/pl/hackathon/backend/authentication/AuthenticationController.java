@@ -26,6 +26,6 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> signup(@RequestBody SignUpRequest signUpRequest) {
         System.out.println(signUpRequest.email());
         AuthenticationResponse token = authenticationService.signup(signUpRequest);
-        return new ResponseEntity<>(token, HttpStatus.OK);
+        return new ResponseEntity<>(token, HttpStatus.CREATED);
     }
 }
