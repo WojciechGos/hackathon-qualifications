@@ -23,8 +23,9 @@ public class StorageService {
 
     public Entry saveFile(MultipartFile file, Long entryId) {
         Entry entry = entryService.getEntryById(entryId);
-        String filePath = storageUtils.uploadFileToFileSystem(file);
-        entry.setFilePath(filePath);
+        storageUtils.uploadFileToFileSystem(file, entryId);
+        entry.setFileName(file.getOriginalFilename());
+        entry.setFilePath(entryId + "/" + file.getOriginalFilename());
         return entryService.updateEntry(entryId, entry);
     }
     public byte[] getFileByEntryId(Long entryId) {
