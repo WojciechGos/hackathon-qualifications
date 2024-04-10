@@ -15,4 +15,10 @@ export class JuryService {
   getAllEntries(): Observable<any> {
     return this.http.get<any>(`${this.apiURL}/entries`);
   }
+
+  updateEntrie(status:string,id:number): Observable<any> {
+    return this.http.patch<any>(`${this.apiURL}/entries/${id}`,status);
+  }
+
+
 }
