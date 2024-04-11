@@ -20,10 +20,11 @@ export class AuthService {
     null
   );
 
-  async getTokenfromLocalStorage() {
-    const token = await localStorage.getItem('token');
+  getTokenfromLocalStorage() {
+    const token = localStorage.getItem('token');
+    const id = localStorage.getItem('id');
 
-    if (token) {
+    if (token && id) {
       this.token$.next(token);
       this.isLogged$.next(true);
     } else {
@@ -31,8 +32,6 @@ export class AuthService {
       this.isLogged$.next(false);
       this.userRole$.next(null);
     }
-
-    console.log(token);
   }
 
   login(body: LoginData): Observable<any> {
@@ -54,7 +53,6 @@ export class AuthService {
         this.userRole$.next(res.user.role);
         this.token$.next(res.token);
         localStorage.setItem('token', res.token);
-        localStorage.setItem('id', res.user.id);
       })
     );
   }
@@ -71,7 +69,7 @@ export class AuthService {
     const id = localStorage.getItem('id');
     return this.http.get<any>(`${this.apiURL}/users/${id}`).pipe(
       tap((res) => {
-        this.userRole$.next(res.user.role);
+        this.userRole$.next(res.role);
       })
     );
   }
