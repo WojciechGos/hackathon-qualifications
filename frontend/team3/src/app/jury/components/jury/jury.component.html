@@ -29,11 +29,11 @@
         <button mat-button [matMenuTriggerFor]="menu">Menu</button>
         <mat-menu class="menu" #menu="matMenu">
           <mat-form-field>
-          <mat-label class="menu-label">Zmień Role</mat-label>
-          <mat-select [(ngModel)]="selectedRole" (selectionChange)="changeRole(element, selectedRole)">
-            <mat-option value="user">User</mat-option>
-            <mat-option value="jury">Jury</mat-option>
-            <mat-option value="admin">Admin</mat-option>
+          <mat-label class="menu-label">Zmień Status</mat-label>
+          <mat-select [(ngModel)]="selectedStatus" (selectionChange)="changeStatus(element, selectedStatus)">
+            <mat-option value="PENDING">OCZEKUJACY</mat-option>
+            <mat-option value="QUALIFIED">ZAKWALIFIKOWANY</mat-option>
+            <mat-option value="UNQUALIFIED">NIEZAKWALIFIKOWANY</mat-option>
           </mat-select>
             </mat-form-field>
             

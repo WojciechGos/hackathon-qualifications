@@ -4,13 +4,13 @@
 
     <mat-form-field class="input" appearance="fill">
       <mat-label>Imię</mat-label>
-      <input autocomplete="name" type="text" matInput formControlName="firstName">
+      <input autocomplete="first-name" type="text" matInput formControlName="firstName">
       <mat-error *ngIf="controls.firstName.invalid">{{getErrorMessage(controls.firstName)}}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="input" appearance="fill">
       <mat-label>Nazwisko</mat-label>
-      <input autocomplete="name" type="text" matInput formControlName="lastName">
+      <input autocomplete="last-name" type="text" matInput formControlName="lastName">
       <mat-error *ngIf="controls.lastName.invalid">{{getErrorMessage(controls.lastName)}}</mat-error>
     </mat-form-field>
 

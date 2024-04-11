@@ -1,31 +1,8 @@
-import { LiveAnnouncer } from '@angular/cdk/a11y';
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ViewChild,
-} from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-export interface PeriodicElement {
-  email: string;
-  position: number;
-  rola: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, email: 'Hydrogen', rola: 'H' },
-  { position: 2, email: 'Helium',  rola: 'He' },
-  { position: 3, email: 'Lithium',  rola: 'Li' },
-  { position: 4, email: 'Beryllium', rola: 'Be' },
-  { position: 5, email: 'Boron', rola: 'B' },
-  { position: 6, email: 'Carbon', rola: 'C' },
-  { position: 7, email: 'Nitrogen',  rola: 'N' },
-  { position: 8, email: 'Oxygen',  rola: 'O' },
-  { position: 9, email: 'Fluorine', rola: 'F' },
-  { position: 10, email: 'Neon', rola: 'Ne' },
-];
+import { Admin } from 'src/app/core/models/admin.model';
+import { AdminService } from 'src/app/core/services/admin.service';
 
 @Component({
   selector: 'app-admin',
@@ -35,43 +12,63 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class AdminComponent implements AfterViewInit {
 
   displayedColumns: string[] = [
-    'position',
+    'id',
     'email',
-    'rola',
+    'role',
     'settings',
   ];
-
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-  clickedRows = new Set<PeriodicElement>();
+  
+  dataSource = new MatTableDataSource<Admin>();
+  clickedRows = new Set<Admin>();
   sort!: MatSort;
   selectedRole: string = '';
 
-  constructor(
-    private _liveAnnouncer: LiveAnnouncer,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private adminService: AdminService) {}
 
   @ViewChild(MatSort) set matSort(sort: MatSort) {
     this.sort = sort;
     this.dataSource.sort = this.sort;
   }
 
-  changeRole(person: PeriodicElement | undefined, newRole: string) {
-    if (person) {
-      console.log(`Changing role of ${person.email} to ${newRole}`);
-      person.rola = newRole;
-      // Implement your logic here to update the role in the database or perform other actions
-    }
+  ngOnInit() {
+    this.getAdmin();
+  }
 
-    this.cdr.detectChanges(); // Refresh the view after changing data
+  getAdmin() {
+    this.adminService.getAllEntries().subscribe(
+      (admins: Admin[]) => {
+        admins.forEach((admin, index) => {
+          admin.id = index + 1;
+        });
+        this.dataSource.data = admins;
+        console.log('Admin:', admins);
+      },
+      error => {
+        console.error('Error fetching admin:', error);
+      }
+    );
+  }
+
+  changeRole(person: Admin | undefined, newRole: string) {
+    if (person) {
+      console.log(`Changing role of ${person.id} to ${newRole}`);
+      this.adminService.updateRole(newRole, person.id).subscribe(
+        response => {
+          console.log('Role updated successfully:', response);
+          // Update the role in the table after successful update on the server
+          person.role = newRole;
+        },
+        error => {
+          console.error('Error updating role:', error);
+          // Handle error
+        }
+      );
+    }
   }
 
   delete(position: number) {
     console.log('Deleted:', position);
     // Delete the entry
-
-
-    this.cdr.detectChanges();
   }
 
   ngAfterViewInit() {
@@ -80,9 +77,9 @@ export class AdminComponent implements AfterViewInit {
 
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+      console.log(`Sorted ${sortState.direction}ending`);
     } else {
-      this._liveAnnouncer.announce('Sorting cleared');
+      console.log('Sorting cleared');
     }
   }
 }

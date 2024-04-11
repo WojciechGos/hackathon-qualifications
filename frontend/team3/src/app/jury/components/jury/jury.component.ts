@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Jury } from 'src/app/core/models/jury.model';
+import { Jury, JuryStatus } from 'src/app/core/models/jury.model';
 import { JuryService } from 'src/app/core/services/jury.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class JuryComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<Jury>();
   clickedRows = new Set<Jury>();
   sort!: MatSort;
-  selectedRole: string = '';
+  selectedStatus: string = '';
 
   constructor(private juryService: JuryService) {}
 
@@ -42,11 +42,19 @@ export class JuryComponent implements AfterViewInit {
     );
   }
 
-  changeRole(person: Jury | undefined, newRole: string) {
+  changeStatus(person: JuryStatus, newStatus: string) {
     if (person) {
-      console.log(`Changing role of ${person.email} to ${newRole}`);
-      person.status = newRole;
-      // Implement your logic here to update the role in the database or perform other actions
+      console.log(`Changing status of ${person.id} to ${newStatus}`);
+      this.juryService.updateEntrie(newStatus, person.id).subscribe(
+        response => {
+          console.log('Status updated successfully:', response);
+          person.status = newStatus;
+        },
+        error => {
+          console.error('Error updating status:', error);
+
+        }
+      );
     }
   }
 

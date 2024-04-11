@@ -5,7 +5,10 @@ import { RouterEnum } from 'src/enums/router.enum';
 import { JuryGuard } from '../core/guards/jury.guard';
 
 const routes: Routes = [
-  { path: RouterEnum.jury, component: JuryComponent, canActivate: [JuryGuard] },
+  { path: RouterEnum.jury, component: JuryComponent, 
+  //  canActivate: [JuryGuard] 
+  },
+
 ];
 
 @NgModule({
