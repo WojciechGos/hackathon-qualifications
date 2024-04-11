@@ -17,7 +17,7 @@ public class PersonService {
         return personRepository.save(person);
     }
 
-    public PersonDTO updatePerson(Long id, Person person) {
+    public PersonDTO updatePersonById(Long id, Person person) {
         Person personToUpdate = getPersonById(id);
 
         if(person.getNameAndSurname() != null)
