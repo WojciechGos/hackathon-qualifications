@@ -25,4 +25,7 @@ export class UserService {
   addTeam(team: Team): Observable<any> {
     return this.http.post<any>(`${this.apiURL}/entries`, team);
   }
+  getTeam(): Observable<any> {
+    return this.http.get<any>(`${this.apiURL}/entries/user`,);
+  }
 }

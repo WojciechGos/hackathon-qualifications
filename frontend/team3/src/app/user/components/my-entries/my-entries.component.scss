@@ -1,0 +1,14 @@
+.split-card {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .left-content {
+    flex: 1;
+    padding: 16px;
+  }
+  
+  .right-content {
+    flex: 1;
+    padding: 16px;
+  }
