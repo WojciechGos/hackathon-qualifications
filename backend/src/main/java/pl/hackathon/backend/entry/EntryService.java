@@ -9,6 +9,8 @@ import pl.hackathon.backend.exception.ResourceNotFoundException;
 import pl.hackathon.backend.person.Person;
 import pl.hackathon.backend.person.PersonService;
 import pl.hackathon.backend.storage.StorageUtils;
+import pl.hackathon.backend.user.User;
+import pl.hackathon.backend.user.UserService;
 
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class EntryService {
 
     private final EntryRepository entryRepository;
     private final PersonService personService;
+    private final UserService userService;
     private final StorageUtils storageUtils;
 
     public Entry getEntryById(Long id) {
@@ -28,13 +31,7 @@ public class EntryService {
         return entryRepository.findAll();
     }
 
-    public Entry addEntry(@Valid Entry entry) {
-
-        System.out.println(entry.getParticipantList().size());
-        System.out.println(entry.getParticipantNumber());
-
-        System.out.println(entry.toString());
-
+    public Entry addEntry(@Valid Entry entry, String email) {
 
         if(entry.getParticipantNumber() != entry.getParticipantList().size())
             throw new BadRequestException("Participant number must be equal to the number of participants");
@@ -42,6 +39,11 @@ public class EntryService {
         for (Person person : entry.getParticipantList()) {
             personService.addPerson(person);
         }
+
+        User user = userService.getUserByEmail(email);
+
+        entry.setUserEmail(user.getEmail());
+        entry.setUserId(user.getId());
 
         return entryRepository.save(entry);
     }

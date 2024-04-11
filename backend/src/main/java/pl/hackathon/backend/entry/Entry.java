@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import pl.hackathon.backend.person.Person;
+import pl.hackathon.backend.user.User;
+import pl.hackathon.backend.user.UserDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,5 +50,10 @@ public class Entry {
     private EntryStatus status = EntryStatus.PENDING;
     private String fileName;
     private String filePath;
+
+    private String userEmail;
+    private Long userId;
+
+
 
 }

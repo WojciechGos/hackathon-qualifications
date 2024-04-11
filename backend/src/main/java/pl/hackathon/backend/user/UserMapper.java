@@ -13,6 +13,14 @@ public class UserMapper {
                 user.getUserRole()
         );
     }
+    public static UserDTO addIdToTheDTO(UserDTO userDTO, Long id) {
+        return new UserDTO(
+                id,
+                userDTO.email(),
+                userDTO.nameAndSurname(),
+                userDTO.role()
+        );
+    }
 
 
 }

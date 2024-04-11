@@ -54,6 +54,11 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id)
                 .map(UserMapper::mapToUserDTO)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id [%s] found".formatted(id)));
-
     }
+
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User with email [%s] found".formatted(email)));
+    }
+
 }

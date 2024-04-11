@@ -50,7 +50,9 @@ public class AuthenticationService {
 
         UserDTO userDTO = UserMapper.mapToUserDTO(user);
 
-        userService.createUser(user);
+        UserDTO createdUser = userService.createUser(user);
+
+        userDTO = UserMapper.addIdToTheDTO(userDTO, createdUser.id());
 
         String token = jwtUtil.issueToken(user.getEmail(), user.getAuthorities()
                 .stream()
