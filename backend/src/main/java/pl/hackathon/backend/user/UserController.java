@@ -18,6 +18,11 @@ public class UserController {
         return new ResponseEntity<>(userService.getUsers(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id){
+        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    }
+
     @PatchMapping("/{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO user){
         return new ResponseEntity<>(userService.updateUser(id, user), HttpStatus.OK);

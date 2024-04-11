@@ -49,4 +49,11 @@ public class UserService implements UserDetailsService {
         user.setPassword(encodedPassword);
         return UserMapper.mapToUserDTO(userRepository.save(user));
     }
+
+    public UserDTO getUserById(Long id) {
+        return userRepository.findById(id)
+                .map(UserMapper::mapToUserDTO)
+                .orElseThrow(() -> new ResourceNotFoundException("User with id [%s] found".formatted(id)));
+
+    }
 }
