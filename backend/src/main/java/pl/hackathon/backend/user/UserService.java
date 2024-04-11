@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.hackathon.backend.exception.ResourceNotFoundException;
 
@@ -14,6 +16,8 @@ import java.util.List;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
 
     public List<UserDTO> getUsers() {
         return userRepository.findAll().stream().map(UserMapper::mapToUserDTO).toList();
@@ -41,6 +45,8 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDTO createUser(User user) {
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         return UserMapper.mapToUserDTO(userRepository.save(user));
     }
 }
