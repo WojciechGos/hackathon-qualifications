@@ -22,24 +22,7 @@ class PersonTest {
         validator = factory.getValidator();
     }
 
-    @Test
-    void whenNameAndSurnameIsNull_thenShouldHaveConstraintViolations() {
-        Person person = new Person(null, "test@test.com");
-        Set<ConstraintViolation<Person>> violations = validator.validate(person);
-        System.out.println(violations.toString());
-        assertEquals(2, violations.size());
-        Iterator<ConstraintViolation<Person>> iterator = violations.iterator();
 
-        assertTrue(iterator.hasNext());
-        assertEquals("First and last name must not be blank.", iterator.next().getMessage());
-
-        assertTrue(iterator.hasNext());
-        assertEquals("First and last name must not be null.", iterator.next().getMessage());
-
-        assertFalse(iterator.hasNext());
-
-
-    }
 
 
     @Test

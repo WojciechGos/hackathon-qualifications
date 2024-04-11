@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserCommandLineRunner implements CommandLineRunner {
 
-    private final UserRepository userRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
