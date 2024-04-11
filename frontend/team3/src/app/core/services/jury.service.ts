@@ -30,7 +30,7 @@ export class JuryService {
   }
 
   updateEntrie(status:string,id:number): Observable<any> {
-    const payload = { role: status }; 
+    const payload = { status: status }; 
     return this.http.patch<any>(`${this.apiURL}/entries/${id}`,payload);
   }
 
