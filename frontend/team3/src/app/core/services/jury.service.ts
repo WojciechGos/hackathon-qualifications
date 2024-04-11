@@ -15,8 +15,14 @@ export class JuryService {
     return this.http.get<any>(`${this.apiURL}/entries`);
   }
 
+  getJuryDetails(id: number): Observable<any> {
+    const url = `${this.apiURL}/entries/${id}`; // Endpoint dla szczegółowych danych zespołu
+    return this.http.get<any>(url);
+  }
+
   updateEntrie(status:string,id:number): Observable<any> {
-    return this.http.patch<any>(`${this.apiURL}/entries/${id}`,status);
+    const payload = { role: status }; 
+    return this.http.patch<any>(`${this.apiURL}/entries/${id}`,payload);
   }
 
 

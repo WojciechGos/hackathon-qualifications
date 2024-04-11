@@ -1,0 +1,23 @@
+<div class="details-table-container" *ngIf="details">
+    <h2>Details for Jury ID: {{ details.id }}</h2>
+    <p><strong>Team Name:</strong> {{ details.teamName }}</p>
+    <p><strong>Team Description:</strong> {{ details.teamDescription }}</p>
+    <p><strong>Status:</strong> {{ details.status }}</p>
+    <h3>Participant List:</h3>
+    <mat-table [dataSource]="details.participantList" class="mat-elevation-z8">
+      <!-- Name and Surname Column -->
+      <ng-container matColumnDef="nameAndSurname">
+        <mat-header-cell *matHeaderCellDef>Name and Surname</mat-header-cell>
+        <mat-cell *matCellDef="let participant">{{ participant.nameAndSurname }}</mat-cell>
+      </ng-container>
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+        <mat-cell *matCellDef="let participant">{{ participant.email }}</mat-cell>
+      </ng-container>
+      <!-- Define columns -->
+      <mat-header-row *matHeaderRowDef="['nameAndSurname', 'email']"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: ['nameAndSurname', 'email'];"></mat-row>
+    </mat-table>
+  </div>
+  
