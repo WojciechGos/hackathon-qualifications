@@ -3,20 +3,21 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Jury, JuryStatus } from 'src/app/core/models/jury.model';
 import { JuryService } from 'src/app/core/services/jury.service';
-
+import { Router } from '@angular/router';
+import { RouterEnum } from 'src/enums/router.enum';
 @Component({
   selector: 'app-jury',
   templateUrl: './jury.component.html',
   styleUrls: ['./jury.component.scss'],
 })
 export class JuryComponent implements AfterViewInit {
-  displayedColumns: string[] = ['id', 'teamName', 'status', 'settings'];
+  displayedColumns: string[] = ['id', 'teamName', 'status','details', 'settings'];
   dataSource = new MatTableDataSource<Jury>();
   clickedRows = new Set<Jury>();
   sort!: MatSort;
   selectedStatus: string = '';
 
-  constructor(private juryService: JuryService) {}
+  constructor(private juryService: JuryService,private router: Router) {}
 
   @ViewChild(MatSort) set matSort(sort: MatSort) {
     this.sort = sort;
@@ -30,9 +31,6 @@ export class JuryComponent implements AfterViewInit {
   getJury() {
     this.juryService.getAllEntries().subscribe(
       (juries: Jury[]) => {
-        juries.forEach((jury, index) => {
-          jury.id = index + 1;
-        });
         this.dataSource.data = juries;
         console.log('Jury:', juries);
       },
@@ -42,7 +40,12 @@ export class JuryComponent implements AfterViewInit {
     );
   }
 
-  changeStatus(person: JuryStatus, newStatus: string) {
+  goToDetails(element: any) {
+    this.router.navigate([RouterEnum.jurydetails, element.id]); // Przekazujemy Id zespołu jako parametr
+  }
+  
+
+  changeStatus(person: JuryStatus| undefined, newStatus: string) {
     if (person) {
       console.log(`Changing status of ${person.id} to ${newStatus}`);
       this.juryService.updateEntrie(newStatus, person.id).subscribe(
@@ -57,6 +60,8 @@ export class JuryComponent implements AfterViewInit {
       );
     }
   }
+
+  
 
   delete(position: number) {
     console.log('Deleted:', position);

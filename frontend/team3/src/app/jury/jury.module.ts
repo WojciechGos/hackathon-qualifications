@@ -5,9 +5,10 @@ import { JuryComponent } from './components/jury/jury.component';
 import { SharedModule } from '../shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderInterceptor } from '../core/interceptors/header.interceptor';
+import { JuryDetailsComponent } from './components/jury-details/jury-details.component';
 
 @NgModule({
-  declarations: [JuryComponent],
+  declarations: [JuryComponent, JuryDetailsComponent],
   imports: [CommonModule, JuryRoutingModule, SharedModule],
   providers: [
     {

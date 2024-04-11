@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: RouterEnum.addTeam,
     component: AddTeamFormComponent,
-    canActivate: [UserGuard],
+   // canActivate: [UserGuard],
   },
   {
     path: RouterEnum.myEntries,
