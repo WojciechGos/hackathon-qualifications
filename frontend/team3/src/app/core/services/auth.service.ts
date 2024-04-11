@@ -13,21 +13,23 @@ export class AuthService {
 
   isLogged$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   userRole$: BehaviorSubject<string | null> = new BehaviorSubject<
-    string | null >(null);
+    string | null
+  >(null);
 
   login(body: LoginData): Observable<any> {
     return this.http.post<any>(`${this.apiURL}/sign-in`, body).pipe(
-      tap(() => {
+      tap((res) => {
         this.isLogged$.next(true);
-        this.userRole$
+        this.userRole$.next(res.user.role);
       })
     );
   }
 
   register(body: RegisterData): Observable<any> {
     return this.http.post<any>(`${this.apiURL}/sign-up`, body).pipe(
-      tap(() => {
+      tap((res) => {
         this.isLogged$.next(true);
+        this.userRole$.next(res.user.role);
       })
     );
   }
@@ -39,7 +41,7 @@ export class AuthService {
   checkRole(): Observable<any> {
     return this.http.get<any>(`${this.apiURL}/sign-in`).pipe(
       tap((res) => {
-        this.userRole$.next(res.role);
+        this.userRole$.next(res.user.role);
       })
     );
   }

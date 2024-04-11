@@ -1,25 +1,35 @@
+import { Injectable } from '@angular/core';
 import {
   CanActivate,
   Router,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
+  UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, map } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { RouterEnum } from 'src/enums/router.enum';
 
-export class AuthGuard implements CanActivate {
+@Injectable({
+  providedIn: 'root',
+})
+export class UnauthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean> {
+  ):
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
     return this.authService.isLogged$.pipe(
-      tap((isLogged) => {
-        if (!isLogged) {
-          this.router.navigate([RouterEnum.login]);
+      map((isLogged) => {
+        if (isLogged) {
+          return this.router.createUrlTree([RouterEnum.home]);
+        } else {
+          return true;
         }
       })
     );
