@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterEnum } from 'src/enums/router.enum';
+import { AuthService } from '../../services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -8,4 +10,11 @@ import { RouterEnum } from 'src/enums/router.enum';
 })
 export class NavbarComponent {
 RouterEnum = RouterEnum;
+constructor(  
+  private authService: AuthService
+){}
+
+
+user$: Observable<boolean> = this.authService.isLogged$;
 }
+

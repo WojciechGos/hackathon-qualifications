@@ -5,7 +5,10 @@
         <span class="white-color">/&gt;</span>
     </span>
     <span class="spacer"></span>
-    <button mat-button [routerLink]="RouterEnum.login">Zaloguj</button>
-    <span class="divider">|</span>
-    <button mat-button [routerLink]="RouterEnum.register">Zarejestruj</button>
+    <button *ngIf="!(user$ | async)" 
+     mat-button [routerLink]="RouterEnum.login">Zaloguj</button>
+    <span class="divider" *ngIf="!(user$ | async)">|</span>
+    <button *ngIf="!(user$ | async)" mat-button [routerLink]="RouterEnum.register">Zarejestruj</button>
+    <span *ngIf="user$ | async as user" class="user-name">{{"aaa"}}</span>
+    <!-- <button *ngIf="user$ | async" mat-button (click)="logout()">Wyloguj</button> -->
 </mat-toolbar>
