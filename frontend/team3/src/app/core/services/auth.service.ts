@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { LoginData, RegisterData } from '../models/user.model';
+import { LoginData, RegisterData, User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,7 @@ export class AuthService {
   userRole$: BehaviorSubject<string | null> = new BehaviorSubject<
     string | null
   >(null);
+
   token$: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(
     null
   );

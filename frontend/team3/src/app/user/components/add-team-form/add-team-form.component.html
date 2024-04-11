@@ -2,13 +2,13 @@
   <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <h2>Dodaj zespół</h2>
     <mat-form-field class="input" appearance="fill">
-      <mat-label>nazwa zespołu</mat-label>
+      <mat-label>Nazwa zespołu</mat-label>
       <input type="text" matInput formControlName="teamName">
       <mat-error *ngIf="controls.teamName.invalid">{{getErrorMessage(controls.teamName)}}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="input" appearance="fill">
-      <mat-label>Opis</mat-label>
+      <mat-label>Krótki opis zespołu</mat-label>
       <input type="text" matInput formControlName="description">
       <mat-error *ngIf="controls.description.invalid">{{getErrorMessage(controls.description)}}</mat-error>
     </mat-form-field>
@@ -27,17 +27,22 @@
     </mat-form-field>
 
     <div formArrayName="users">
-      <div *ngFor="let userGroup of form.controls.users.controls; let i=index" [formGroupName]="i">
-        <mat-form-field class="input" appearance="fill">
-          <mat-label>Uczestnik</mat-label>
-          <input type="text" matInput formControlName="nameAndSurname">
-        </mat-form-field>
-        <mat-form-field class="input" appearance="fill">
-          <mat-label>Email</mat-label>
-          <input type="email" matInput formControlName="email">
-        </mat-form-field>
-      </div>
+      <ng-container *ngFor="let userGroup of form.controls.users.controls; let i=index">
+        <div [formGroupName]="i" class="user-group">
+          <mat-form-field class="input" appearance="fill">
+            <mat-label>{{i+1}}. Imię i nazwisko uczestnika</mat-label>
+            <input type="text" matInput formControlName="nameAndSurname">
+          </mat-form-field>
+          <mat-form-field class="input" appearance="fill">
+            <mat-label>{{i+1}}. Adres E-mail uczestnika</mat-label>
+            <input type="email" matInput formControlName="email">
+          </mat-form-field>
+        </div>
+        <div class="user-margin"></div> 
+      </ng-container>
     </div>
+    
+    
     
     
     
