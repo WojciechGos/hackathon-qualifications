@@ -46,7 +46,7 @@ public class AuthenticationService {
     public AuthenticationResponse signup(SignUpRequest signUpRequest) {
 
         System.out.println(signUpRequest.email());
-        User user = new User(signUpRequest.email(), signUpRequest.nameAndSurname(), signUpRequest.password(), UserRole.USER);
+        User user = new User(signUpRequest.email(), signUpRequest.nameAndSurname(), signUpRequest.password(), UserRole.ROLE_USER);
 
         UserDTO userDTO = UserMapper.mapToUserDTO(user);
 

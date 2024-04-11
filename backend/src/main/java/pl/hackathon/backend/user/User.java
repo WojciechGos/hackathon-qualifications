@@ -42,7 +42,7 @@ public class User extends Person implements UserDetails {
 
     @Override
     public String getPassword() {
-        return password;
+        return this.password;
     }
     @Override
     public String getUsername() {

@@ -1,7 +1,7 @@
 package pl.hackathon.backend.user;
 
 public enum UserRole {
-    JURY,
-    USER,
-    ADMIN
+    ROLE_JURY,
+    ROLE_USER,
+    ROLE_ADMIN
 }
