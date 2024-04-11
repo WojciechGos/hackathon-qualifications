@@ -64,16 +64,16 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(HttpMethod.POST, "/api/v1/sign-in").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/api/v1/sign-up").permitAll();
-                    auth.requestMatchers(HttpMethod.GET,
+                    auth.requestMatchers(
                             "/v2/api-docs",
                             "/v3/api-docs/**",
                             "/swagger.ui.html",
                             "/swagger-resources/**",
                             "/webjars/**",
-                            "/swagger-resources/configuration/ui"
-
+                            "/swagger-resources/**",
+                            "/swagger-ui/**",
+                            "/configuration/**"
                     ).permitAll();
-
                     auth.requestMatchers(HttpMethod.POST, "/api/v1/entries").hasAnyRole("USER", "ADMIN");
                     auth.requestMatchers(HttpMethod.PATCH, "/api/v1/entries/**").hasAnyRole("USER", "ADMIN", "JURY");
                     auth.requestMatchers(HttpMethod.DELETE, "/api/v1/entries/**").hasAnyRole("USER", "ADMIN");

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import pl.hackathon.backend.entry.Entry;
 import pl.hackathon.backend.entry.EntryService;
+import pl.hackathon.backend.exception.BadRequestException;
 import pl.hackathon.backend.exception.InternalServerErrorException;
 
 import java.io.File;
@@ -22,6 +23,12 @@ public class StorageService {
     private final EntryService entryService;
 
     public Entry saveFile(MultipartFile file, Long entryId) {
+
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename == null || !originalFilename.toLowerCase().endsWith(".pdf")) {
+            throw new BadRequestException("File must be a .pdf");
+        }
+
         Entry entry = entryService.getEntryById(entryId);
         storageUtils.uploadFileToFileSystem(file, entryId);
         entry.setFileName(file.getOriginalFilename());
