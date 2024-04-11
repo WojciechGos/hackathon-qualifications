@@ -37,9 +37,6 @@ export class AdminComponent implements AfterViewInit {
   getAdmin() {
     this.adminService.getAllEntries().subscribe(
       (admins: Admin[]) => {
-        admins.forEach((admin, index) => {
-          admin.id = index + 1;
-        });
         this.dataSource.data = admins;
         console.log('Admin:', admins);
       },
@@ -48,6 +45,7 @@ export class AdminComponent implements AfterViewInit {
       }
     );
   }
+  
 
   changeRole(person: Admin | undefined, newRole: string) {
     if (person) {

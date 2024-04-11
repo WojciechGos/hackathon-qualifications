@@ -1,0 +1,20 @@
+<div *ngIf="team" class="container">
+    <mat-card class="split-card">
+      <mat-card-content class="left-content">
+        <h2>Nazwa drużyny: {{ team.teamName }}</h2>
+        <p>Opis zespołu: {{ team.teamDescription }}</p>
+        <p>Liczba osób w zespole: {{ team.participantNumber }}</p>
+        <p>Status: {{ team.status }}</p>
+      </mat-card-content>
+      <mat-card-content class="right-content">
+        <h3>Uczestnicy</h3>
+        <mat-list>
+          <mat-list-item *ngFor="let participant of team.participantList">
+            <div mat-line>{{ participant.nameAndSurname }}</div>
+            <div mat-line>{{ participant.email }}</div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

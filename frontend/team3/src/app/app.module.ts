@@ -11,7 +11,6 @@ import { AdminModule } from './admin/admin.module';
 
 import { HomeModule } from './home/home.module';
 import { UserModule } from './user/user.module';
-
 const customNotifier: NotifierOptions = {
   position: {
     horizontal: {
