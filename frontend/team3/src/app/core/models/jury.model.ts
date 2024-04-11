@@ -8,9 +8,9 @@ import { InteractivityChecker } from "@angular/cdk/a11y";
     
   }
   export interface JuryPdf{
-    pdfFile: File
+    pdfFile: Blob;
   }
-  
+
 export interface AllDetails{
   id:number;
   teamName: string;

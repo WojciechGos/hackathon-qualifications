@@ -19,5 +19,5 @@
       <mat-header-row *matHeaderRowDef="['nameAndSurname', 'email']"></mat-header-row>
       <mat-row *matRowDef="let row; columns: ['nameAndSurname', 'email'];"></mat-row>
     </mat-table>
+    <button mat-raised-button (click)="downloadPdf()">Download PDF</button>
   </div>
-  

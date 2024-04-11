@@ -15,7 +15,7 @@ export class JuryDetailsComponent implements OnInit {
   sort: any;
 clickedRows: any;
 displayedColumns: Iterable<string> | undefined;
-
+id!:number;
   constructor(
     private route: ActivatedRoute,
     private juryService: JuryService
@@ -24,6 +24,7 @@ displayedColumns: Iterable<string> | undefined;
   ngOnInit() {
     this.route.params.subscribe(params => {
       const juryId = +params['id']; // Pobieramy id z parametrów adresu URL
+      this.id=juryId;
 
       // Pobieramy szczegóły zespołu na podstawie id
       this.juryService.getJuryDetails(juryId).subscribe(
@@ -36,6 +37,19 @@ displayedColumns: Iterable<string> | undefined;
       );
     });
   }
+  downloadPdf(){
+    this.juryService.getPdf(this.id).subscribe((data: any) => {
+      const blob = new Blob([data], { type: 'application/pdf' });
+
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'jury_details.pdf';
+      link.click();
+      window.URL.revokeObjectURL(link.href);
+    });
+}
+  
+  
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
