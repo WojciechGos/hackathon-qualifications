@@ -15,7 +15,7 @@ import { AdminService } from 'src/app/core/services/admin.service';
 export interface PeriodicElement {
   email: string;
   position: number;
-  UserRole: string;
+  role: string;
 }
 
 
@@ -29,7 +29,7 @@ export class AdminComponent implements AfterViewInit {
   displayedColumns: string[] = [
     'id',
     'email',
-    'UserRole',
+    'role',
     'settings',
   ];
   
@@ -74,7 +74,7 @@ export class AdminComponent implements AfterViewInit {
         response => {
           console.log('Status updated successfully:', response);
           // Aktualizacja statusu w tabeli po udanej aktualizacji na serwerze
-          person.UserRole = newStatus;
+          person.role = newStatus;
         },
         error => {
           console.error('Error updating status:', error);

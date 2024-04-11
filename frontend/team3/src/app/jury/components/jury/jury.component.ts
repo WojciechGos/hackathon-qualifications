@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Jury } from 'src/app/core/models/jury.model';
+import { Jury, JuryStatus } from 'src/app/core/models/jury.model';
 import { JuryService } from 'src/app/core/services/jury.service';
 
 @Component({
@@ -42,12 +42,14 @@ export class JuryComponent implements AfterViewInit {
     );
   }
 
-  changeStatus(person: Jury | undefined, newStatus: string) {
+  changeStatus(person: JuryStatus | undefined, newStatus: string) {
     if (person) {
       console.log(`Changing status of ${person.id} to ${newStatus}`);
+    //  console.log(newStatus);
       this.juryService.updateEntrie(newStatus, person.id).subscribe(
         response => {
           console.log('Status updated successfully:', response);
+          
           // Aktualizacja statusu w tabeli po udanej aktualizacji na serwerze
           person.status = newStatus;
         },

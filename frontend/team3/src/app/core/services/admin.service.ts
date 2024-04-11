@@ -11,7 +11,7 @@ export class AdminService {
   constructor(private http: HttpClient) {}
 
   getAllEntries(): Observable<any> {
-    return this.http.get<any>(`${this.apiURL}/entries`);
+    return this.http.get<any>(`${this.apiURL}/users`);
   }
 
   updateEntrie(UserRole:string,id:number): Observable<any> {
