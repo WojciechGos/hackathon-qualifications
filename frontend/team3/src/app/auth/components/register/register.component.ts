@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
+import { RegisterData } from 'src/app/core/models/user.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { RouterEnum } from 'src/enums/router.enum';
 
@@ -77,8 +78,17 @@ export class RegisterComponent {
     return '';
   }
 
+
   onSubmit() {
-    this.authService.register(this.form.getRawValue()).subscribe({
+    const formValue = this.form.getRawValue();
+    const register: RegisterData = {
+      nameAndSurname: formValue.firstName + ' ' + formValue.lastName,
+      email: formValue.email,
+      password: formValue.password,
+    }
+    console.log(register)
+
+    this.authService.register(register).subscribe({
       next: () => {
         this.router.navigate([RouterEnum.home]);
         this.notifierService.notify('success', 'Register success');

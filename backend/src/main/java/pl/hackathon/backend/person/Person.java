@@ -35,7 +35,7 @@ public class Person {
     private String nameAndSurname;
 
     @NotBlank(message = "Email address must not be empty.")
-    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Incorrect email address format")
+    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Incorrect email address format.")
     private String email;
 
     public Person(String nameAndSurname, String email) {

@@ -62,7 +62,16 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    this.authService.login(this.form.getRawValue()).subscribe({
+
+    const fromValue = this.form.getRawValue();
+    const loginData = {
+      email: fromValue.email,
+      password: fromValue.password,
+    };
+
+    console.log(loginData);
+
+    this.authService.login(loginData).subscribe({
       next: () => {
         this.router.navigate([RouterEnum.home]);
         this.notifierService.notify('success', 'Login success!');

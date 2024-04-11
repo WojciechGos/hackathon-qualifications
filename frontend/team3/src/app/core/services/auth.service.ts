@@ -8,7 +8,7 @@ import { LoginData, RegisterData } from '../models/user.model';
   providedIn: 'root',
 })
 export class AuthService {
-  apiURL = `${environment.apiURL}/`;
+  apiURL = `${environment.apiURL}`;
   constructor(private http: HttpClient) {}
 
   isLogged$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -17,17 +17,19 @@ export class AuthService {
   >(null);
 
   login(body: LoginData): Observable<any> {
-    return this.http.post<any>(`${this.apiURL}/login`, body).pipe(
-      tap(() => {
+    return this.http.post<any>(`${this.apiURL}/sign-in`, body).pipe(
+      tap((res) => {
         this.isLogged$.next(true);
+        this.userRole$.next(res.user.role);
       })
     );
   }
 
   register(body: RegisterData): Observable<any> {
-    return this.http.post<any>(`${this.apiURL}/register`, body).pipe(
-      tap(() => {
+    return this.http.post<any>(`${this.apiURL}/sign-up`, body).pipe(
+      tap((res) => {
         this.isLogged$.next(true);
+        this.userRole$.next(res.user.role);
       })
     );
   }
@@ -37,9 +39,9 @@ export class AuthService {
   }
 
   checkRole(): Observable<any> {
-    return this.http.get<any>(`${this.apiURL}/login`).pipe(
+    return this.http.get<any>(`${this.apiURL}/sign-in`).pipe(
       tap((res) => {
-        this.userRole$.next(res.role);
+        this.userRole$.next(res.user.role);
       })
     );
   }
