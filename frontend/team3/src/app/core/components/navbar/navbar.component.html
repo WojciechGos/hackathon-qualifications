@@ -9,6 +9,7 @@
      mat-button [routerLink]="RouterEnum.login">Zaloguj</button>
     <span class="divider" *ngIf="!(user$ | async)">|</span>
     <button *ngIf="!(user$ | async)" mat-button [routerLink]="RouterEnum.register">Zarejestruj</button>
-    <span *ngIf="user$ | async as user" class="user-name">{{"aaa"}}</span>
-    <!-- <button *ngIf="user$ | async" mat-button (click)="logout()">Wyloguj</button> -->
+    <ng-container *ngIf="user$ | async as user">
+        <button mat-button (click)="logout()">Wyloguj</button>
+    </ng-container>
 </mat-toolbar>

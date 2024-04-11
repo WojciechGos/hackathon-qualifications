@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterEnum } from 'src/enums/router.enum';
 import { AuthService } from '../../services/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +14,10 @@ constructor(
   private authService: AuthService
 ){}
 
+
+logout() {
+  this.authService.logout();
+}
 
 user$: Observable<boolean> = this.authService.isLogged$;
 }
