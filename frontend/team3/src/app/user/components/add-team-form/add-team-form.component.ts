@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NotifierService } from 'angular-notifier';
 import { UserService } from 'src/app/core/services/user.service';
 import { RouterEnum } from 'src/enums/router.enum';
+import { Team , TeamWithPdf, Pdf } from 'src/app/core/models/team.model';
 
 @Component({
   selector: 'app-add-team-form',
@@ -41,7 +42,7 @@ export class AddTeamFormComponent {
       nonNullable: true,
     }),
     users: new FormArray([], Validators.required),
-    file: new FormControl('', { nonNullable: true }) 
+    file: new FormControl(new File([], ''), { validators: [Validators.required] })
   });
 
   get controls() {
@@ -90,7 +91,7 @@ export class AddTeamFormComponent {
 
     for (let i = 0; i < amountToGenerate; i++) {
       const userFormGroup = new FormGroup({
-        name: new FormControl('', Validators.required),
+        nameAndSurname: new FormControl('', Validators.required),
         email: new FormControl('', [Validators.required, Validators.email])
       });
       usersArray.push(userFormGroup);
@@ -102,6 +103,33 @@ export class AddTeamFormComponent {
     console.log(this.form.getRawValue());
     const allEmpty = usersArray.controls.every((control) => !control.value);
 
+    const formValue = this.form.getRawValue();
+    const dataToSend: Team = {
+      teamName: formValue.teamName,
+      teamDescription: formValue.description,
+      participantNumber: formValue.amount,
+      participantList: formValue.users,
+      status: 'PENDING',
+      fileName: '',
+      filePath: ''
+    };
+    console.log(dataToSend)
+
+    const uploadDataPdf: Pdf = {
+      pdfFile: formValue.file ? new File([formValue.file], formValue.teamName + '.pdf') : new File([], '')
+    };
+    
+    if (formValue.file) {
+      const file = new File([formValue.file], formValue.teamName + '.pdf');
+      uploadDataPdf.pdfFile = file;
+    }
+    
+    const file = new File([uploadDataPdf.pdfFile], formValue.teamName + '.pdf');
+    
+    uploadDataPdf.pdfFile = file;
+    
+
+
     if (allEmpty) {
       this.notifierService.notify(
         'warning',
@@ -109,12 +137,34 @@ export class AddTeamFormComponent {
       );
       return;
     }
-
-    this.userService.addTeam(this.form.getRawValue()).subscribe({
-      next: () => {
+    // console.log(teamWithPdf);
+    this.userService.addTeam(dataToSend).subscribe({
+      next: (addTeamResponse) => {
+        console.log('addTeam response:', addTeamResponse);
         this.notifierService.notify('success', 'Dodano zespół');
+    
+        this.userService.uploadPdf(uploadDataPdf.pdfFile, addTeamResponse.id).subscribe({
+          next: (uploadPdfResponse) => {
+            console.log('uploadPdf response:', uploadPdfResponse);
+            this.notifierService.notify('success', 'Dodano zespół');
+          },
+          error: (err) => {
+            console.log('uploadPdf error:', err);
+            this.notifierService.notify('error', 'Spróbuj ponownie');
+          },
+        });
       },
-      error: (err) => this.notifierService.notify('error', 'Spróbuj ponownie'),
+      error: (err) => {
+        console.log('addTeam error:', err);
+        this.notifierService.notify('error', 'Spróbuj ponownie');
+      },
     });
   }
+  onFileChange(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.form.get('file')?.setValue(file);
+    }
+  }
+  
 }
