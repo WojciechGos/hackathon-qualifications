@@ -53,6 +53,9 @@ export class AuthService {
         this.userRole$.next(res.user.role);
         this.token$.next(res.token);
         localStorage.setItem('token', res.token);
+        if (res.user.id) {
+          localStorage.setItem('id', res.user.id);
+        }
       })
     );
   }

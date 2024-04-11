@@ -46,7 +46,7 @@ public class RestExceptionHandler {
     
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ExceptionResponse> handleValidationExceptions(ConstraintViolationException ex) {
-        return new ResponseEntity<>(new ExceptionResponse(400, "Bad Request", ex.getMessage(), new Timestamp(System.currentTimeMillis())), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ExceptionResponse(401, "Unauthorized", ex.getMessage(), new Timestamp(System.currentTimeMillis())), HttpStatus.BAD_REQUEST);
     }
 
 }

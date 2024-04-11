@@ -54,7 +54,7 @@ public class SecurityConfig {
                         .configurationSource(request -> {
                             CorsConfiguration corsConfig = new CorsConfiguration();
                             corsConfig.setAllowedOrigins(Arrays.asList(allowedOrigins));
-                            corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH","OPTIONS"));
+                            corsConfig.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS"));
                             corsConfig.setAllowedHeaders(Arrays.asList("*"));
                             corsConfig.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
                             corsConfig.setMaxAge(3600L);
@@ -64,7 +64,16 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(HttpMethod.POST, "/api/v1/sign-in").permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/api/v1/sign-up").permitAll();
-
+                    auth.requestMatchers(
+                            "/v2/api-docs",
+                            "/v3/api-docs/**",
+                            "/swagger.ui.html",
+                            "/swagger-resources/**",
+                            "/webjars/**",
+                            "/swagger-resources/**",
+                            "/swagger-ui/**",
+                            "/configuration/**"
+                    ).permitAll();
                     auth.requestMatchers(HttpMethod.POST, "/api/v1/entries").hasAnyRole("USER", "ADMIN");
                     auth.requestMatchers(HttpMethod.PATCH, "/api/v1/entries/**").hasAnyRole("USER", "ADMIN", "JURY");
                     auth.requestMatchers(HttpMethod.DELETE, "/api/v1/entries/**").hasAnyRole("USER", "ADMIN");

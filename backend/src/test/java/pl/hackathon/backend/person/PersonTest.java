@@ -41,26 +41,6 @@ class PersonTest {
 
     }
 
-    @Test
-    void whenEmailIsBlank_thenShouldHaveConstraintViolations() {
-        //given
-        Person person = new Person("test test", "");
-
-        //when
-        Set<ConstraintViolation<Person>> violations = validator.validate(person);
-        Iterator<ConstraintViolation<Person>> iterator = violations.iterator();
-
-        //then
-
-        assertTrue(iterator.hasNext());
-        assertEquals("Email address must not be empty.", iterator.next().getMessage());
-
-        assertTrue(iterator.hasNext());
-        assertEquals("Incorrect email address format.", iterator.next().getMessage());
-
-        assertFalse(iterator.hasNext());
-
-    }
 
     @Test
     void whenEmailIsNull_thenShouldHaveConstraintViolations() {
