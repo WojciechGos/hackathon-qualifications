@@ -71,6 +71,9 @@ public class JWTUtil {
 
     public boolean isTokenValid(String jwt, String username) {
         String subject = getSubject(jwt);
+        System.out.println(subject);
+        System.out.println(subject.equals(username));
+        System.out.println(!isTokenExpired(jwt));
         return subject.equals(username) && !isTokenExpired(jwt);
     }
 
