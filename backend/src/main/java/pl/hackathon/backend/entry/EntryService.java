@@ -31,6 +31,10 @@ public class EntryService {
         return entryRepository.findAll();
     }
 
+    public Entry getEntryByUserEmail(String email) {
+        return entryRepository.findByUserEmail(email).orElseThrow(()-> new ResourceNotFoundException("Entry with email: [%s] not found.".formatted(email)));
+    }
+
     public Entry addEntry(@Valid Entry entry, String email) {
 
         if(entry.getParticipantNumber() != entry.getParticipantList().size())

@@ -43,6 +43,11 @@ public class EntryController {
         return new ResponseEntity<>(entryService.getEntryById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/user")
+    public ResponseEntity<Entry> getEntriesByUser(HttpServletRequest request) {
+        return new ResponseEntity<>(entryService.getEntryByUserEmail(request.getAttribute("username").toString()), HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<List<Entry>> getEntries() {
         return new ResponseEntity<>(entryService.getEntries(), HttpStatus.OK);
