@@ -81,6 +81,7 @@ export class RegisterComponent {
 
   onSubmit() {
     const formValue = this.form.getRawValue();
+    
     const register: RegisterData = {
       nameAndSurname: formValue.firstName + ' ' + formValue.lastName,
       email: formValue.email,
