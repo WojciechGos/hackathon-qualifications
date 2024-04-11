@@ -15,12 +15,27 @@ export class AuthService {
   userRole$: BehaviorSubject<string | null> = new BehaviorSubject<
     string | null
   >(null);
+  token$: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(
+    null
+  );
+
+  getTokenfromLocalStorage() {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      this.token$.next(token);
+    } else {
+      this.token$.next(null);
+    }
+  }
 
   login(body: LoginData): Observable<any> {
     return this.http.post<any>(`${this.apiURL}/sign-in`, body).pipe(
       tap((res) => {
         this.isLogged$.next(true);
         this.userRole$.next(res.user.role);
+        this.token$.next(res.token);
+        localStorage.setItem('token', res.token);
       })
     );
   }
@@ -30,12 +45,17 @@ export class AuthService {
       tap((res) => {
         this.isLogged$.next(true);
         this.userRole$.next(res.user.role);
+        this.token$.next(res.token);
+        localStorage.setItem('token', res.token);
       })
     );
   }
 
   logout() {
     this.isLogged$.next(false);
+    this.userRole$.next(null);
+    this.token$.next(null);
+    localStorage.removeItem('token');
   }
 
   checkRole(): Observable<any> {
