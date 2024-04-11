@@ -10,6 +10,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [],
@@ -25,6 +27,8 @@ import { MatSortModule } from '@angular/material/sort';
     NgxMatFileInputModule,
     MatTableModule,
     MatSortModule,
+    MatDividerModule,
+    MatListModule
   ],
 })
 export class MaterialModule {}

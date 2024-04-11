@@ -5,9 +5,10 @@ import { AddTeamFormComponent } from './components/add-team-form/add-team-form.c
 import { UserRoutingModule } from './user-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderInterceptor } from '../core/interceptors/header.interceptor';
+import { MyEntriesComponent } from './components/my-entries/my-entries.component';
 
 @NgModule({
-  declarations: [AddTeamFormComponent],
+  declarations: [AddTeamFormComponent, MyEntriesComponent],
   imports: [SharedModule, UserRoutingModule],
   providers: [
     {
