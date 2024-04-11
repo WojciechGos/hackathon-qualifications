@@ -1,23 +1,8 @@
-import { LiveAnnouncer } from '@angular/cdk/a11y';
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  ViewChild,
-} from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Admin } from 'src/app/core/models/admin.model';
 import { AdminService } from 'src/app/core/services/admin.service';
-
-
-
-export interface PeriodicElement {
-  email: string;
-  position: number;
-  role: string;
-}
-
 
 @Component({
   selector: 'app-admin',
@@ -33,13 +18,10 @@ export class AdminComponent implements AfterViewInit {
     'settings',
   ];
   
-
-  dataSource = new MatTableDataSource<Admin>;
+  dataSource = new MatTableDataSource<Admin>();
   clickedRows = new Set<Admin>();
   sort!: MatSort;
   selectedRole: string = '';
-  cdr: any;
-  _liveAnnouncer: any;
 
   constructor(private adminService: AdminService) {}
 
@@ -47,6 +29,7 @@ export class AdminComponent implements AfterViewInit {
     this.sort = sort;
     this.dataSource.sort = this.sort;
   }
+
   ngOnInit() {
     this.getAdmin();
   }
@@ -66,19 +49,18 @@ export class AdminComponent implements AfterViewInit {
     );
   }
 
-
-  changerole(person: Admin | undefined, newStatus: string) {
+  changeRole(person: Admin | undefined, newRole: string) {
     if (person) {
-      console.log(`Changing status of ${person.id} to ${newStatus}`);
-      this.adminService.updateEntrie(newStatus, person.id).subscribe(
+      console.log(`Changing role of ${person.id} to ${newRole}`);
+      this.adminService.updateRole(newRole, person.id).subscribe(
         response => {
-          console.log('Status updated successfully:', response);
-          // Aktualizacja statusu w tabeli po udanej aktualizacji na serwerze
-          person.role = newStatus;
+          console.log('Role updated successfully:', response);
+          // Update the role in the table after successful update on the server
+          person.role = newRole;
         },
         error => {
-          console.error('Error updating status:', error);
-          // Obsługa błędu
+          console.error('Error updating role:', error);
+          // Handle error
         }
       );
     }
@@ -87,9 +69,6 @@ export class AdminComponent implements AfterViewInit {
   delete(position: number) {
     console.log('Deleted:', position);
     // Delete the entry
-
-
-    this.cdr.detectChanges();
   }
 
   ngAfterViewInit() {
@@ -98,9 +77,9 @@ export class AdminComponent implements AfterViewInit {
 
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+      console.log(`Sorted ${sortState.direction}ending`);
     } else {
-      this._liveAnnouncer.announce('Sorting cleared');
+      console.log('Sorting cleared');
     }
   }
 }

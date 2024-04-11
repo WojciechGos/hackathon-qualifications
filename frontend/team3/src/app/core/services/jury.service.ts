@@ -8,8 +8,7 @@ import { Jury } from '../models/jury.model';
   providedIn: 'root',
 })
 export class JuryService {
-  apiURL = `${environment.apiURL}`; // Dodajemy ścieżkę do endpointu
-
+  apiURL = `${environment.apiURL}`;
   constructor(private http: HttpClient) {}
 
   getAllEntries(): Observable<any> {

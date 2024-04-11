@@ -42,20 +42,17 @@ export class JuryComponent implements AfterViewInit {
     );
   }
 
-  changeStatus(person: JuryStatus | undefined, newStatus: string) {
+  changeStatus(person: JuryStatus, newStatus: string) {
     if (person) {
       console.log(`Changing status of ${person.id} to ${newStatus}`);
-    //  console.log(newStatus);
       this.juryService.updateEntrie(newStatus, person.id).subscribe(
         response => {
           console.log('Status updated successfully:', response);
-          
-          // Aktualizacja statusu w tabeli po udanej aktualizacji na serwerze
           person.status = newStatus;
         },
         error => {
           console.error('Error updating status:', error);
-          // Obsługa błędu
+
         }
       );
     }

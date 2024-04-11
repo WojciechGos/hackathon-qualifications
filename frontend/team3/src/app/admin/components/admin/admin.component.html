@@ -23,12 +23,12 @@
     <th mat-header-cell *matHeaderCellDef> Settings </th>
     <td mat-cell *matCellDef="let element">
       <button mat-icon-button [matMenuTriggerFor]="menu">
-     
+        <!-- Icon button -->
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item [disabled]="selectedRole === element.role" (click)="changerole(element, 'ROLE_USER')">Change to User</button>
-        <button mat-menu-item [disabled]="selectedRole === element.role" (click)="changerole(element, 'ROLE_JURY')">Change to Jury</button>
-        <button mat-menu-item [disabled]="selectedRole === element.role" (click)="changerole(element, 'ROLE_ADMIN')">Change to Admin</button>
+        <button mat-menu-item [disabled]="selectedRole === element.role" (click)="changeRole(element, 'ROLE_USER')">Change to User</button>
+        <button mat-menu-item [disabled]="selectedRole === element.role" (click)="changeRole(element, 'ROLE_JURY')">Change to Jury</button>
+        <button mat-menu-item [disabled]="selectedRole === element.role" (click)="changeRole(element, 'ROLE_ADMIN')">Change to Admin</button>
         <button mat-menu-item (click)="delete(element.position)">Delete</button>
       </mat-menu>
     </td>
