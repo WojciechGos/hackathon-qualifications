@@ -1,11 +1,18 @@
 <mat-toolbar color="primary">
-    <span class="navbar-title" [routerLink]="RouterEnum.home"> 
-        <span class="white-color">&lt;</span> 
-        <span class="yellow-color">Kieleckie dni informatyki</span> 
-        <span class="white-color">/&gt;</span>
-    </span>
-    <span class="spacer"></span>
-    <button mat-button [routerLink]="RouterEnum.login">Zaloguj</button>
-    <span class="divider">|</span>
-    <button mat-button [routerLink]="RouterEnum.register">Zarejestruj</button>
+  <span class="navbar-title" [routerLink]="RouterEnum.home">
+    <span class="white-color">&lt;</span>
+    <span class="yellow-color">Kieleckie dni informatyki</span>
+    <span class="white-color">/&gt;</span>
+  </span>
+  <span class="spacer"></span>
+  <button *ngIf="!(user$ | async)" mat-button [routerLink]="RouterEnum.login">Zaloguj</button>
+  <span class="divider" *ngIf="!(user$ | async)">|</span>
+  <button *ngIf="!(user$ | async)" mat-button [routerLink]="RouterEnum.register">Zarejestruj</button>
+  <span *ngIf="user$ | async as user" class="user-name">{{"aaa"}}</span>
+  <button *ngIf="user$ | async" mat-button (click)="logout()">Wyloguj</button>
+
+
+  <button *ngIf="(user$ | async) && (role$ | async) === RoleEnum.admin" mat-button>admin</button>
+  <button *ngIf="(user$ | async) && (role$ | async) === RoleEnum.user" mat-button>user</button>
+  <button *ngIf="(user$ | async) && (role$ | async) === RoleEnum.jury" mat-button>jury</button>
 </mat-toolbar>
