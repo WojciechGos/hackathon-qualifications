@@ -1,4 +1,5 @@
 export interface LoginData {
+  
   email: string;
   password: string;
 }
@@ -9,7 +10,7 @@ export interface RegisterData {
   password: string;
 }
 
-// export interface User {
-//   name: string;
-//   email: string;
-// }
+export interface User {
+  nameAndSurname: string;
+  email: string;
+}

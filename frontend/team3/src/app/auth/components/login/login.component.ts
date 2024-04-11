@@ -65,6 +65,7 @@ export class LoginComponent {
 
     const fromValue = this.form.getRawValue();
     const loginData = {
+
       email: fromValue.email,
       password: fromValue.password,
     };

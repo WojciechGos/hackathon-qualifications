@@ -45,6 +45,9 @@ export class AddTeamFormComponent {
     file: new FormControl(new File([], ''), { validators: [Validators.required] })
   });
 
+  ngOnInit() {
+    this.onAmountChange();
+  }
   get controls() {
     return this.form.controls;
   }
@@ -73,23 +76,24 @@ export class AddTeamFormComponent {
     const amount = +this.form.getRawValue().amount;
     const usersArray = this.form.get('users') as FormArray;
     const amountControl = this.form.get('amount');
-
+  
     if (amountControl) {
-      let amount = amountControl.value;
-      if (amount > 4) {
+      let amountValue = amountControl.value;
+      if (amountValue > 4) {
         amountControl.setValue(4);
-      } else if (amount <= 1) {
-        amount = 1;
+      } else if (amountValue < 1) {
         amountControl.setValue(1);
       }
     }
+  
     while (usersArray.length !== 0) {
       usersArray.removeAt(0);
     }
-
-    const amountToGenerate = Math.min(amount, 4);
-
-    for (let i = 0; i < amountToGenerate; i++) {
+  
+    const amountToGenerate = Math.max(amount, 1);
+    const maxAllowedUsers = Math.min(amountToGenerate, 4);
+  
+    for (let i = 0; i < maxAllowedUsers; i++) {
       const userFormGroup = new FormGroup({
         nameAndSurname: new FormControl('', Validators.required),
         email: new FormControl('', [Validators.required, Validators.email])
@@ -97,6 +101,7 @@ export class AddTeamFormComponent {
       usersArray.push(userFormGroup);
     }
   }
+  
 
   onSubmit() {
     const usersArray = this.form.get('users') as FormArray;
