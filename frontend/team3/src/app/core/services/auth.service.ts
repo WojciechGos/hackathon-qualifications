@@ -20,14 +20,19 @@ export class AuthService {
     null
   );
 
-  getTokenfromLocalStorage() {
-    const token = localStorage.getItem('token');
+  async getTokenfromLocalStorage() {
+    const token = await localStorage.getItem('token');
 
     if (token) {
       this.token$.next(token);
+      this.isLogged$.next(true);
     } else {
       this.token$.next(null);
+      this.isLogged$.next(false);
+      this.userRole$.next(null);
     }
+
+    console.log(token);
   }
 
   login(body: LoginData): Observable<any> {
@@ -37,6 +42,7 @@ export class AuthService {
         this.userRole$.next(res.user.role);
         this.token$.next(res.token);
         localStorage.setItem('token', res.token);
+        localStorage.setItem('id', res.user.id);
       })
     );
   }
@@ -48,6 +54,7 @@ export class AuthService {
         this.userRole$.next(res.user.role);
         this.token$.next(res.token);
         localStorage.setItem('token', res.token);
+        localStorage.setItem('id', res.user.id);
       })
     );
   }
@@ -57,10 +64,12 @@ export class AuthService {
     this.userRole$.next(null);
     this.token$.next(null);
     localStorage.removeItem('token');
+    localStorage.removeItem('id');
   }
 
   checkRole(): Observable<any> {
-    return this.http.get<any>(`${this.apiURL}/sign-in`).pipe(
+    const id = localStorage.getItem('id');
+    return this.http.get<any>(`${this.apiURL}/users/${id}`).pipe(
       tap((res) => {
         this.userRole$.next(res.user.role);
       })
